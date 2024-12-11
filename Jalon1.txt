@@ -1,0 +1,45 @@
+Sujet 2 - Mini alarme de bureau connecté : 
+Jalon 1 : Formaliser le cahier des charges :
+Sommaire : 
+Diagramme synoptique du système (page 2)
+Listes des fonctionnalités (page 3)
+Diagramme des cas d’utilisation (page 3)
+Listes des exigence (page 4)
+Diagramme des exigences (page 5)
+1 : Diagramme synoptique du système :
+Voici le diagramme des synoptique du système :
+2 : Listes des fonctionnalités :
+Fonctionnalités principales :
+Détection de l’ouverture du tiroir :
+Le système détecte si le tiroir est ouvert ou fermé grâce à un capteur magnétique.
+L’état du tiroir est envoyé à l’Arduino et synchronisé avec le serveur Node.js.
+Gestion de l’alarme sonore :
+Un buzzer s’active immédiatement si le tiroir est ouvert alors que l’alarme est armée.
+Indication visuelle de l’état de l’alarme :
+Une LED :
+Allumée : lorsque l’alarme est armée.
+Éteinte : lorsque l’alarme est désarmée.
+Contrôle via une interface web :
+La visualisation en temps réel de l’état du tiroir (ouvert/fermé).
+Commandes pour :
+Armer l’alarme (activer la sécurité).
+Désarmer l’alarme (désactiver temporairement la sécurité).
+Synchronisation des données en temps réel :
+Communication bidirectionnelle entre l’Arduino et le serveur Node.js via une liaison USB :
+Données montantes : État du tiroir envoyé par l’Arduino au serveur.
+Données descendantes : Commandes d’activation/désactivation envoyées par le serveur à l’Arduino.
+Hébergement de l’interface web :
+L’interface est hébergée par le serveur Node.js et accessible via un navigateur.
+Requêtes HTTP pour gérer les interactions entre l’utilisateur et l’Arduino.
+Fonctionnalités techniques :
+1 : Capteur magnétique : 
+    Détecte l’état du tiroir (ouvert/fermé).
+    Fournit un signal binaire (0 ou 1) à l’Arduino.
+2 : Gestion de l’alarme :
+    Activation automatique du buzzer si l’alarme est armée et que le tiroir est ouvert.
+    La LED indique l’état actif/inactif de l’alarme.
+3 : Communication série USB :
+    Transfert rapide des données entre l’Arduino et le serveur Node.js.
+    Gestion de l’interface utilisateur :
+4 : Contrôle intuitif grâce à des boutons pour activer/désactiver l’alarme.
+Affichage en temps réel de l’état du tiroir pour permettre une gestion proactive.
