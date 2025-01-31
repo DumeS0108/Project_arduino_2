@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contrôle de l'alarme</title>
-  <link rel="stylsheet" href="body.css"> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrôle du Tiroir</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Contrôle de l'alarme</h1>
-  <div class="status">
-    <p>Tiroir : <span id="drawerStatus">...</span></p>
-    <p>Alarme : <span id="alarmStatus" class="armed">...</span></p>
-  </div>
-  <button id="toggleAlarm">Armer / Désarmer l'alarme</button>
+    <div class="container">
+        <h1>🔒 Surveillance du Tiroir</h1>
 
-  <script src="Untitled-3.js"></script>
+        <!-- État du tiroir -->
+        <div class="status-box">
+            <p>État du tiroir :</p>
+            <span id="drawerStatus" class="status">Chargement...</span>
+        </div>
+
+        <!-- État de l'alarme -->
+        <div class="status-box">
+            <p>État de l'alarme :</p>
+            <span id="alarmStatus" class="status">Chargement...</span>
+        </div>
+
+        <!-- Bouton pour armer/désarmer l'alarme -->
+        <button id="toggleAlarmBtn" class="btn">Chargement...</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

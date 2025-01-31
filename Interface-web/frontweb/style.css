@@ -1,0 +1,96 @@
+/* Importation Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+h1 {
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* Bloc d'affichage des statuts */
+.status-box {
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ddd;
+    color: #333;
+}
+
+.status {
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Couleurs pour le tiroir */
+.open {
+    background-color: #ff9800;
+    color: white;
+}
+
+.closed {
+    background-color: #4caf50;
+    color: white;
+}
+
+/* Couleurs pour l'alarme */
+.armed {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.disarmed {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Bouton */
+.btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+.btn.active {
+    background: #e74c3c;
+}

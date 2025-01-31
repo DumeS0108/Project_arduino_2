@@ -1,44 +1,52 @@
-// Fonction pour mettre à jour les statuts
-async function fetchStatus() {
-  try {
-    const response = await fetch('/status'); // Requête GET au serveur
-    const data = await response.json();
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const SerialPort = require('serialport');
+const Readline = require('@serialport/parser-readline');
 
-    // Mettre à jour le statut du tiroir
-    const drawerStatusElement = document.getElementById('drawerStatus');
-    drawerStatusElement.textContent = data.drawerState === 'OPEN' ? 'Ouvert' : 'Fermé';
-    drawerStatusElement.className = data.drawerState === 'OPEN' ? 'open' : 'closed';
+const app = express();
+const PORT = 3000;
 
-    // Mettre à jour le statut de l'alarme
-    const alarmStatusElement = document.getElementById('alarmStatus');
-    alarmStatusElement.textContent = data.alarmArmed ? 'Armée' : 'Désarmée';
-    alarmStatusElement.className = data.alarmArmed ? 'armed' : 'disarmed';
-  } catch (error) {
-    console.error('Erreur lors de la récupération des statuts:', error);
-  }
-}
+// Lancer le serveur
+app.listen(PORT, () => {
+    console.log(`Serveur en ligne sur http://192.168.65.219:${PORT}`);
+});
 
-// Fonction pour armer ou désarmer l'alarme
-async function toggleAlarm() {
-  try {
-    const response = await fetch('/toggle-alarm', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const data = await response.json();
-    if (data.success) {
-      fetchStatus(); // Actualiser les statuts après modification
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// Connexion au port série de l'Arduino
+const arduinoPort = new SerialPort('/dev/ttyUSB0', { baudRate: 9600 });
+const parser = arduinoPort.pipe(new Readline({ delimiter: '\n' }));
+
+// Variables d'état
+let drawerState = 'CLOSED'; // 'OPEN' ou 'CLOSED'
+let alarmArmed = true; // Alarme activée par défaut
+
+// Écoute des messages de l'Arduino
+parser.on('data', (data) => {
+    console.log('Reçu de l’Arduino :', data);
+    
+    if (data.includes('OPEN')) {
+        drawerState = 'OPEN';
+    } else if (data.includes('CLOSED')) {
+        drawerState = 'CLOSED';
     }
-  } catch (error) {
-    console.error('Erreur lors du changement de l\'état de l\'alarme:', error);
-  }
-}
+});
 
-// Rafraîchir les statuts toutes les secondes
-setInterval(fetchStatus, 1000);
+// Route pour récupérer l'état actuel
+app.get('/status', (req, res) => {
+    res.json({ drawerState, alarmArmed });
+});
 
-// Gestion du clic sur le bouton
-document.getElementById('toggleAlarm').addEventListener('click', toggleAlarm);
+// Route pour changer l'état de l'alarme
+app.post('/toggle-alarm', (req, res) => {
+    alarmArmed = !alarmArmed;
+    console.log(`Alarme ${alarmArmed ? 'armée' : 'désarmée'}`);
 
-// Charger les statuts initiaux
-fetchStatus();
+    // Envoyer la commande à l'Arduino
+    arduinoPort.write(alarmArmed ? 'ARM\n' : 'DISARM\n');
+
+    res.json({ alarmArmed });
+});
